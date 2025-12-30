@@ -1,3 +1,6 @@
 <Solution>
+  <Project Path="InvCore360_App.BL/InvCore360_App.BL.csproj" />
+  <Project Path="InvCore360_App.DA/InvCore360_App.DA.csproj" />
   <Project Path="InvCore360_App.Model/InvCore360_App.Model.csproj" />
+  <Project Path="InvCore360_App.UI/InvCore360_App.UI.csproj" />
 </Solution>
