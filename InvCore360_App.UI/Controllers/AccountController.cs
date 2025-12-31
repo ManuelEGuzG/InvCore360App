@@ -22,36 +22,37 @@ namespace InvCore360_App.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(string nombreUsuario, string contrasena, string returnUrl = "/")
+        public async Task<IActionResult> Login(string nombreUsuario, string contrasena, string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-
             if (string.IsNullOrWhiteSpace(nombreUsuario) || string.IsNullOrWhiteSpace(contrasena))
             {
                 ModelState.AddModelError(string.Empty, "Ingrese usuario y contraseña.");
+                ViewData["ReturnUrl"] = returnUrl;
                 return View();
             }
 
             if (!await _usuarioService.ValidateCredentialsAsync(nombreUsuario, contrasena))
             {
                 ModelState.AddModelError(string.Empty, "Credenciales inválidas");
+                ViewData["ReturnUrl"] = returnUrl;
                 return View();
             }
 
             var user = await _usuarioService.GetByNombreUsuarioAsync(nombreUsuario);
 
             var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.NombreCompleto ?? user.NombreUsuario),
-                new Claim("UsuarioID", user.UsuarioID.ToString()),
-                new Claim(ClaimTypes.Role, user.Rol ?? string.Empty)
-            };
+    {
+        new Claim(ClaimTypes.Name, user.NombreCompleto ?? user.NombreUsuario),
+        new Claim("UsuarioID", user.UsuarioID.ToString()),
+        new Claim(ClaimTypes.Role, user.Rol ?? string.Empty)
+    };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
+
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-            // Redirect to returnUrl if local, otherwise to dashboard
+            // Redirigir correctamente
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 return LocalRedirect(returnUrl);
 
