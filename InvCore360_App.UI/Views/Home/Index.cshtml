@@ -1,0 +1,1202 @@
+@model InvCore360_App.UI.Models.DashboardViewModel
+@{
+    ViewData["Title"] = "Panel de Control";
+}
+
+<!-- Agregar Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<div class="dashboard-premium">
+    <!-- Hero Header -->
+    <div class="dashboard-hero mb-5">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="hero-content">
+                        <div class="welcome-badge mb-3">
+                            <span class="badge-dot"></span>
+                            <span>Sistema Activo</span>
+                        </div>
+                        <h1 class="display-4 fw-bold mb-2 gradient-text">InvCore360</h1>
+                        <p class="lead text-muted mb-0">Panel de control y análisis en tiempo real de tu negocio</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                    <div class="date-badge">
+                        <div class="d-flex align-items-center justify-content-lg-end gap-3">
+                            <div class="date-icon">
+                                <i class="bi bi-clock-history"></i>
+                            </div>
+                            <div class="text-start">
+                                <small class="text-muted d-block mb-1">Hora actual</small>
+                                <strong class="d-block" id="currentDate">@DateTime.Now.ToString("dd MMM yyyy")</strong>
+                                <small class="text-primary" id="currentTime">@DateTime.Now.ToString("HH:mm:ss")</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Metrics Grid -->
+    <div class="metrics-section mb-5">
+        <div class="section-header mb-4">
+            <h5 class="section-title">
+                Métricas Principales
+            </h5>
+            <p class="section-subtitle">Vista general de tu inventario y operaciones</p>
+        </div>
+        <div class="row g-4">
+            <!-- Categorías -->
+            <div class="col-xl-3 col-lg-6">
+                <div class="metric-card card-primary">
+                    <div class="metric-glow"></div>
+                    <div class="metric-card-inner">
+                        <div class="metric-header">
+                            <div class="icon-wrapper">
+                                <div class="icon-circle"></div>
+                                <i class="bi bi-grid-3x3-gap-fill"></i>
+                            </div>
+                            <span class="metric-badge">
+                                <i class="bi bi-circle-fill pulse-dot"></i>
+                                Activo
+                            </span>
+                        </div>
+                        <div class="metric-body">
+                            <h6 class="metric-label">Categorías</h6>
+                            <div class="metric-value-wrapper">
+                                <span class="metric-value">@Model.CategoriasCount</span>
+                                <span class="metric-unit">registros</span>
+                            </div>
+                            <div class="metric-progress">
+                                <div class="progress-line" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="metric-footer">
+                            <a class="metric-link" asp-controller="Categoria" asp-action="Index">
+                                <span>Ver todas las categorías</span>
+                                <i class="bi bi-arrow-right-circle-fill"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Productos -->
+            <div class="col-xl-3 col-lg-6">
+                <div class="metric-card card-success">
+                    <div class="metric-glow"></div>
+                    <div class="metric-card-inner">
+                        <div class="metric-header">
+                            <div class="icon-wrapper">
+                                <div class="icon-circle"></div>
+                                <i class="bi bi-box-seam-fill"></i>
+                            </div>
+                            <span class="metric-badge">
+                                <i class="bi bi-circle-fill pulse-dot"></i>
+                                Stock
+                            </span>
+                        </div>
+                        <div class="metric-body">
+                            <h6 class="metric-label">Productos</h6>
+                            <div class="metric-value-wrapper">
+                                <span class="metric-value">@Model.ProductosCount</span>
+                                <span class="metric-unit">items</span>
+                            </div>
+                            <div class="metric-progress">
+                                <div class="progress-line" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="metric-footer">
+                            <a class="metric-link" asp-controller="Producto" asp-action="Index">
+                                <span>Administrar inventario</span>
+                                <i class="bi bi-arrow-right-circle-fill"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proveedores -->
+            <div class="col-xl-3 col-lg-6">
+                <div class="metric-card card-info">
+                    <div class="metric-glow"></div>
+                    <div class="metric-card-inner">
+                        <div class="metric-header">
+                            <div class="icon-wrapper">
+                                <div class="icon-circle"></div>
+                                <i class="bi bi-truck"></i>
+                            </div>
+                            <span class="metric-badge">
+                                <i class="bi bi-circle-fill pulse-dot"></i>
+                                Red
+                            </span>
+                        </div>
+                        <div class="metric-body">
+                            <h6 class="metric-label">Proveedores</h6>
+                            <div class="metric-value-wrapper">
+                                <span class="metric-value">@Model.ProveedoresCount</span>
+                                <span class="metric-unit">socios</span>
+                            </div>
+                            <div class="metric-progress">
+                                <div class="progress-line" style="width: 60%"></div>
+                            </div>
+                        </div>
+                        <div class="metric-footer">
+                            <a class="metric-link" asp-controller="Proveedor" asp-action="Index">
+                                <span>Ver red de proveedores</span>
+                                <i class="bi bi-arrow-right-circle-fill"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ventas -->
+            <div class="col-xl-3 col-lg-6">
+                <div class="metric-card card-warning">
+                    <div class="metric-glow"></div>
+                    <div class="metric-card-inner">
+                        <div class="metric-header">
+                            <div class="icon-wrapper">
+                                <div class="icon-circle"></div>
+                                <i class="bi bi-graph-up-arrow"></i>
+                            </div>
+                            <span class="metric-badge">
+                                <i class="bi bi-circle-fill pulse-dot"></i>
+                                Ventas
+                            </span>
+                        </div>
+                        <div class="metric-body">
+                            <h6 class="metric-label">Transacciones</h6>
+                            <div class="metric-value-wrapper">
+                                <span class="metric-value">@Model.VentasCount</span>
+                                <span class="metric-unit">totales</span>
+                            </div>
+                            <div class="metric-progress">
+                                <div class="progress-line" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="metric-footer">
+                            <a class="metric-link" asp-controller="Venta" asp-action="Index">
+                                <span>Historial de ventas</span>
+                                <i class="bi bi-arrow-right-circle-fill"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Secondary Metrics -->
+    <div class="secondary-section">
+        <div class="section-header mb-4">
+            <h5 class="section-title">
+                Información del Sistema
+            </h5>
+            <p class="section-subtitle">Monitoreo y estadísticas adicionales</p>
+        </div>
+        <div class="row g-4">
+            <!-- Usuarios -->
+            <div class="col-xl-4 col-md-6">
+                <div class="info-card info-card-purple">
+                    <div class="info-pattern"></div>
+                    <div class="info-card-content">
+                        <div class="info-icon-wrapper">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <div class="info-details">
+                            <span class="info-label">
+                                <i class="bi bi-shield-check me-1"></i>
+                                Usuarios del Sistema
+                            </span>
+                            <h3 class="info-value">@Model.UsuariosCount</h3>
+                            <p class="info-description">Cuentas activas registradas</p>
+                        </div>
+                    </div>
+                    <div class="info-stats">
+                        <div class="stat-item">
+                            <i class="bi bi-person-check-fill"></i>
+                            <span>Activos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gastos -->
+            <div class="col-xl-4 col-md-6">
+                <div class="info-card info-card-red">
+                    <div class="info-pattern"></div>
+                    <div class="info-card-content">
+                        <div class="info-icon-wrapper">
+                            <i class="bi bi-cash-stack"></i>
+                        </div>
+                        <div class="info-details">
+                            <span class="info-label">
+                                <i class="bi bi-clipboard-data me-1"></i>
+                                Gastos Registrados
+                            </span>
+                            <h3 class="info-value">@Model.GastosCount</h3>
+                            <p class="info-description">Control total de egresos</p>
+                        </div>
+                    </div>
+                    <div class="info-stats">
+                        <div class="stat-item">
+                            <i class="bi bi-calendar-check"></i>
+                            <span>Este mes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alertas -->
+            <div class="col-xl-4 col-md-6">
+                <div class="alert-card @(Model.AlertasCount > 0 ? "alert-active" : "alert-inactive")">
+                    <div class="alert-pattern"></div>
+                    <div class="alert-card-content">
+                        <div class="alert-icon-wrapper">
+                            @if (Model.AlertasCount > 0)
+                            {
+                                <div class="alert-pulse-ring"></div>
+                                <i class="bi bi-bell-fill"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-shield-fill-check"></i>
+                            }
+                        </div>
+                        <div class="alert-details">
+                            <span class="alert-label">
+                                @if (Model.AlertasCount > 0)
+                                {
+                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                                    <span>¡Atención Requerida!</span>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-check-circle-fill me-1"></i>
+                                    <span>Todo en Orden</span>
+                                }
+                            </span>
+                            <h3 class="alert-value">@Model.AlertasCount</h3>
+                            <p class="alert-description">
+                                @(Model.AlertasCount > 0 ? "Alertas de inventario pendientes" : "Sistema funcionando correctamente")
+                            </p>
+                        </div>
+                    </div>
+                    <div class="alert-action">
+                        @if (Model.AlertasCount > 0)
+                        {
+                            <a class="btn-alert" asp-controller="AlertaInventario" asp-action="Index">
+                                <i class="bi bi-bell-fill me-2"></i>
+                                <span>Revisar Alertas</span>
+                                <i class="bi bi-arrow-right ms-2"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="btn-alert-secondary" asp-controller="AlertaInventario" asp-action="Index">
+                                <i class="bi bi-list-check me-2"></i>
+                                <span>Ver Historial</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions Footer -->
+    <div class="quick-actions mt-5">
+        <div class="actions-card">
+            <div class="actions-pattern"></div>
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <div class="d-flex align-items-center gap-3 mb-3 mb-md-0">
+                        <div class="action-icon">
+                            <i class="bi bi-lightning-charge-fill"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">¿Necesitas realizar una acción rápida?</h5>
+                            <p class="mb-0">Accede a las funciones más utilizadas del sistema</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <button class="btn btn-action w-100 w-md-auto">
+                        <i class="bi bi-grid-fill me-2"></i>
+                        <span>Acciones Rápidas</span>
+                        <i class="bi bi-arrow-right-short ms-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --success: #10b981;
+        --success-dark: #059669;
+        --info: #3b82f6;
+        --info-dark: #2563eb;
+        --warning: #f59e0b;
+        --warning-dark: #d97706;
+        --purple: #8b5cf6;
+        --red: #ef4444;
+        --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);
+    }
+
+    body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+    }
+
+    .dashboard-premium {
+        padding: 2rem 1rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    /* Hero Section */
+    .dashboard-hero {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border-radius: 28px;
+        padding: 2.5rem;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .dashboard-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+    .welcome-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%);
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--primary);
+    }
+
+    .badge-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--success);
+        border-radius: 50%;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        50% {
+            transform: scale(1.2);
+            opacity: 0.8;
+        }
+    }
+
+    .gradient-text {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .date-badge {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        padding: 1.25rem 1.5rem;
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        display: inline-block;
+    }
+
+    .date-icon {
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.25rem;
+    }
+
+    /* Section Headers */
+    .section-header {
+        text-align: center;
+    }
+
+    .section-title {
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+        color: #64748b;
+        font-size: 1rem;
+        margin-bottom: 0;
+    }
+
+    /* Metric Cards */
+    .metric-card {
+        background: white;
+        border-radius: 24px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        height: 100%;
+    }
+
+    .metric-glow {
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .metric-card:hover .metric-glow {
+        opacity: 1;
+    }
+
+    .metric-card:hover {
+        transform: translateY(-12px) scale(1.02);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .metric-card-inner {
+        padding: 2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .metric-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1.75rem;
+    }
+
+    .icon-wrapper {
+        position: relative;
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .icon-circle {
+        position: absolute;
+        inset: 0;
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+        transition: all 0.4s ease;
+    }
+
+    .metric-card:hover .icon-circle {
+        transform: rotate(10deg) scale(1.1);
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+    }
+
+    .card-success .icon-circle {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+    }
+
+    .card-success:hover .icon-circle {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.2) 100%);
+    }
+
+    .card-info .icon-circle {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%);
+    }
+
+    .card-info:hover .icon-circle {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%);
+    }
+
+    .card-warning .icon-circle {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%);
+    }
+
+    .card-warning:hover .icon-circle {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 119, 6, 0.2) 100%);
+    }
+
+    .icon-wrapper i {
+        font-size: 2rem;
+        color: var(--primary);
+        position: relative;
+        z-index: 1;
+    }
+
+    .card-success .icon-wrapper i {
+        color: var(--success);
+    }
+
+    .card-info .icon-wrapper i {
+        color: var(--info);
+    }
+
+    .card-warning .icon-wrapper i {
+        color: var(--warning);
+    }
+
+    .metric-badge {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+        color: var(--primary);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .card-success .metric-badge {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+        color: var(--success);
+    }
+
+    .card-info .metric-badge {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%);
+        color: var(--info);
+    }
+
+    .card-warning .metric-badge {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%);
+        color: var(--warning);
+    }
+
+    .pulse-dot {
+        font-size: 0.4rem;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    .metric-body {
+        margin-bottom: 1.5rem;
+    }
+
+    .metric-label {
+        color: #64748b;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.75rem;
+    }
+
+    .metric-value-wrapper {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .metric-value {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1;
+    }
+
+    .metric-unit {
+        color: #94a3b8;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .metric-progress {
+        height: 6px;
+        background: #f1f5f9;
+        border-radius: 50px;
+        overflow: hidden;
+    }
+
+    .progress-line {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary) 0%, var(--purple) 100%);
+        border-radius: 50px;
+        transition: width 1s ease;
+    }
+
+    .card-success .progress-line {
+        background: linear-gradient(90deg, var(--success) 0%, var(--success-dark) 100%);
+    }
+
+    .card-info .progress-line {
+        background: linear-gradient(90deg, var(--info) 0%, var(--info-dark) 100%);
+    }
+
+    .card-warning .progress-line {
+        background: linear-gradient(90deg, var(--warning) 0%, var(--warning-dark) 100%);
+    }
+
+    .metric-footer {
+        padding-top: 1.5rem;
+        border-top: 2px solid #f8fafc;
+    }
+
+    .metric-link {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.875rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.3s ease;
+    }
+
+    .card-success .metric-link {
+        color: var(--success);
+    }
+
+    .card-info .metric-link {
+        color: var(--info);
+    }
+
+    .card-warning .metric-link {
+        color: var(--warning);
+    }
+
+    .metric-link:hover {
+        transform: translateX(5px);
+    }
+
+    .metric-link i {
+        font-size: 1.5rem;
+        transition: transform 0.3s ease;
+    }
+
+    .metric-link:hover i {
+        transform: translateX(5px) scale(1.1);
+    }
+
+    /* Info Cards */
+    .info-card {
+        background: white;
+        border-radius: 24px;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        transition: all 0.4s ease;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .info-pattern {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
+        opacity: 0.5;
+    }
+
+    .info-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .info-card-content {
+        display: flex;
+        gap: 1.5rem;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .info-icon-wrapper {
+        width: 65px;
+        height: 65px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .info-card-purple .info-icon-wrapper {
+        background: linear-gradient(135deg, var(--purple) 0%, #a78bfa 100%);
+        color: white;
+        box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+    }
+
+    .info-card-red .info-icon-wrapper {
+        background: linear-gradient(135deg, var(--red) 0%, #f87171 100%);
+        color: white;
+        box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+    }
+
+    .info-icon-wrapper::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: white;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .info-card:hover .info-icon-wrapper::before {
+        opacity: 0.2;
+    }
+
+    .info-label {
+        color: #64748b;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.75rem;
+    }
+
+    .info-value {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #0f172a;
+        margin-bottom: 0.5rem;
+        line-height: 1;
+    }
+
+    .info-description {
+        color: #94a3b8;
+        font-size: 0.875rem;
+        margin-bottom: 0;
+    }
+
+    .info-stats {
+        display: flex;
+        gap: 1rem;
+        padding-top: 1rem;
+        border-top: 2px solid #f8fafc;
+        position: relative;
+        z-index: 1;
+    }
+
+    .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #64748b;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+        .stat-item i {
+            color: var(--purple);
+        }
+
+    /* Alert Card */
+    .alert-card {
+        background: white;
+        border-radius: 24px;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        transition: all 0.4s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .alert-pattern {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 200px;
+        height: 200px;
+        opacity: 0.1;
+    }
+
+    .alert-active {
+        background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+        border: 3px solid #fecaca;
+    }
+
+        .alert-active .alert-pattern {
+            background: radial-gradient(circle, var(--red) 0%, transparent 70%);
+        }
+
+    .alert-inactive {
+        background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+        border: 3px solid #bbf7d0;
+    }
+
+        .alert-inactive .alert-pattern {
+            background: radial-gradient(circle, var(--success) 0%, transparent 70%);
+        }
+
+    .alert-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .alert-card-content {
+        display: flex;
+        gap: 1.5rem;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+        position: relative;
+        z-index: 1;
+    }
+
+    .alert-icon-wrapper {
+        width: 65px;
+        height: 65px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+        flex-shrink: 0;
+        position: relative;
+    }
+
+    .alert-active .alert-icon-wrapper {
+        background: linear-gradient(135deg, var(--red) 0%, #f87171 100%);
+        color: white;
+        box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+        animation: shake 3s ease-in-out infinite;
+    }
+
+keyframes shake {
+        0%, 100% {
+            transform: translateX(0);
+        }
+
+        10%, 30%, 50%, 70%, 90% {
+            transform: translateX(-2px);
+        }
+
+        20%, 40%, 60%, 80% {
+            transform: translateX(2px);
+        }
+    }
+
+    .alert-inactive .alert-icon-wrapper {
+        background: linear-gradient(135deg, var(--success) 0%, #34d399 100%);
+        color: white;
+        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+    }
+
+    .alert-pulse-ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        border: 3px solid var(--red);
+        border-radius: 18px;
+        animation: pulse-ring 2s ease-out infinite;
+    }
+
+keyframes pulse-ring {
+        0% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        100% {
+            transform: translate(-50%, -50%) scale(1.5);
+            opacity: 0;
+        }
+    }
+
+    .alert-label {
+        color: #64748b;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.75rem;
+    }
+
+    .alert-active .alert-label {
+        color: var(--red);
+    }
+
+    .alert-inactive .alert-label {
+        color: var(--success);
+    }
+
+    .alert-value {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #0f172a;
+        margin-bottom: 0.5rem;
+        line-height: 1;
+    }
+
+    .alert-description {
+        color: #94a3b8;
+        font-size: 0.875rem;
+        margin-bottom: 0;
+    }
+
+    .alert-action {
+        margin-top: auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .btn-alert, .btn-alert-secondary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 1rem 1.5rem;
+        text-decoration: none;
+        border-radius: 16px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        gap: 0.5rem;
+    }
+
+    .btn-alert {
+        background: linear-gradient(135deg, var(--red) 0%, #dc2626 100%);
+        color: white;
+        box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+    }
+
+        .btn-alert:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(239, 68, 68, 0.4);
+            color: white;
+        }
+
+    .btn-alert-secondary {
+        background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+        color: #475569;
+    }
+
+        .btn-alert-secondary:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
+            color: #1e293b;
+        }
+
+    /* Quick Actions */
+    .quick-actions {
+        margin-top: 3rem;
+    }
+
+    .actions-card {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+        border-radius: 28px;
+        padding: 2.5rem;
+        box-shadow: 0 15px 50px rgba(99, 102, 241, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .actions-pattern {
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    .actions-card h5, .actions-card p {
+        color: white;
+        position: relative;
+        z-index: 1;
+    }
+
+    .action-icon {
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.75rem;
+        flex-shrink: 0;
+    }
+
+    .btn-action {
+        background: white;
+        color: var(--primary);
+        border: none;
+        border-radius: 16px;
+        padding: 1rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: relative;
+        z-index: 1;
+    }
+
+        .btn-action:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 255, 255, 0.4);
+            background: white;
+            color: var(--primary-dark);
+        }
+
+    /* Responsive */
+media (max-width: 1199px) {
+        .metric-value {
+            font-size: 2.5rem;
+        }
+    }
+
+media (max-width: 768px) {
+        .dashboard-premium {
+            padding: 1rem 0.5rem;
+        }
+
+        .dashboard-hero {
+            padding: 1.5rem;
+        }
+
+        .gradient-text {
+            font-size: 1.75rem;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+        }
+
+        .info-value, .alert-value {
+            font-size: 2rem;
+        }
+
+        .metric-card-inner {
+            padding: 1.5rem;
+        }
+
+        .info-card, .alert-card {
+            padding: 1.5rem;
+        }
+
+        .actions-card {
+            padding: 1.5rem;
+        }
+
+        .date-badge {
+            width: 100%;
+            text-align: center;
+        }
+
+            .date-badge .d-flex {
+                justify-content: center !important;
+            }
+
+        .section-title {
+            font-size: 1.25rem;
+        }
+
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+        }
+
+        .info-card-content {
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+        }
+
+        .info-stats {
+            justify-content: center;
+        }
+
+        .alert-card-content {
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+        }
+    }
+
+    /* Animations */
+keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .metric-card, .info-card, .alert-card {
+        animation: fadeInUp 0.6s ease-out backwards;
+    }
+
+        .metric-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .metric-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .metric-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .metric-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+    .dashboard-hero {
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    .section-header {
+        animation: fadeInUp 0.6s ease-out 0.2s backwards;
+    }

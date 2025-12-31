@@ -1,0 +1,43 @@
+@model IEnumerable<InvCore360_App.Model.Models.MovimientoInventario>
+
+@{
+    ViewData["Title"] = "Movimientos de Inventario";
+}
+
+<h1>Movimientos de Inventario</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Agregar Movimiento</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>TipoMovimiento</th>
+            <th>Cantidad</th>
+            <th>StockAnterior</th>
+            <th>StockNuevo</th>
+            <th>FechaMovimiento</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Producto?.Nombre</td>
+            <td>@item.TipoMovimiento</td>
+            <td>@item.Cantidad</td>
+            <td>@item.StockAnterior</td>
+            <td>@item.StockNuevo</td>
+            <td>@item.FechaMovimiento.ToString("g")</td>
+            <td>
+                <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.MovimientoID">Details</a>
+                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.MovimientoID">Edit</a>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.MovimientoID">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

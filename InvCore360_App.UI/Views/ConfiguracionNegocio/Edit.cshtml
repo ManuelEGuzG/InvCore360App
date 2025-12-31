@@ -1,0 +1,45 @@
+@model InvCore360_App.Model.Models.ConfiguracionNegocio
+
+@{
+    ViewData["Title"] = "Editar Configuración";
+}
+
+<h1>Editar Configuración</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="ConfigID" />
+    <div class="form-group">
+        <label asp-for="NombreNegocio"></label>
+        <input asp-for="NombreNegocio" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="RUC"></label>
+        <input asp-for="RUC" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Direccion"></label>
+        <input asp-for="Direccion" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Telefono"></label>
+        <input asp-for="Telefono" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="PorcentajeImpuesto"></label>
+        <input asp-for="PorcentajeImpuesto" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="MonedaPredeterminada"></label>
+        <input asp-for="MonedaPredeterminada" class="form-control" />
+    </div>
+    <div class="form-group form-check">
+        <input asp-for="AlertasHabilitadas" class="form-check-input" />
+        <label asp-for="AlertasHabilitadas" class="form-check-label"></label>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+</form>

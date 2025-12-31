@@ -1,0 +1,36 @@
+@model InvCore360_App.Model.Models.Gasto
+
+@{
+    ViewData["Title"] = "Agregar Gasto";
+}
+
+<h1>Agregar Gasto</h1>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Concepto"></label>
+        <input asp-for="Concepto" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Descripcion"></label>
+        <textarea asp-for="Descripcion" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Monto"></label>
+        <input asp-for="Monto" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="FechaGasto"></label>
+        <input asp-for="FechaGasto" class="form-control" type="date" />
+    </div>
+    <div class="form-group">
+        <label asp-for="UsuarioID"></label>
+        <select asp-for="UsuarioID" class="form-control" asp-items="ViewBag.Usuarios"></select>
+    </div>
+    <button type="submit" class="btn btn-primary">Agregar</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

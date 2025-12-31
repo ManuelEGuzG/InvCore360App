@@ -1,0 +1,23 @@
+@model InvCore360_App.Model.Models.HistorialPrecio
+
+@{
+    ViewData["Title"] = "Detalle HistorialPrecio";
+}
+
+<h1>Detalle</h1>
+
+<dl class="row">
+    <dt class="col-sm-2">Producto</dt>
+    <dd class="col-sm-10">@Model.Producto?.Nombre</dd>
+
+    <dt class="col-sm-2">Precio Costo Anterior</dt>
+    <dd class="col-sm-10">@Model.PrecioCostoAnterior?.ToString("C")</dd>
+
+    <dt class="col-sm-2">Precio Costo Nuevo</dt>
+    <dd class="col-sm-10">@Model.PrecioCostoNuevo?.ToString("C")</dd>
+
+    <dt class="col-sm-2">Fecha Cambio</dt>
+    <dd class="col-sm-10">@Model.FechaCambio.ToString("g")</dd>
+</dl>
+
+<a class="btn btn-secondary" asp-action="Index">Back to List</a>

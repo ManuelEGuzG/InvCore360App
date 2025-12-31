@@ -15,5 +15,6 @@ namespace InvCore360_App.BL.Services
         public Task<Venta> AddAsync(Venta entity) => _repo.AddAsync(entity);
         public Task<Venta?> UpdateAsync(Venta entity) => _repo.UpdateAsync(entity);
         public Task<bool> DeleteAsync(int id) => _repo.DeleteAsync(id);
+        public async Task<Venta> RegisterSaleAsync(Venta venta, IEnumerable<DetalleVenta> detalles) => await _repo.RegisterSaleAsync(venta, detalles);
     }
 }

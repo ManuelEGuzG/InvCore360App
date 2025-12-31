@@ -1,0 +1,31 @@
+@model InvCore360_App.Model.Models.HistorialPrecio
+
+@{
+    ViewData["Title"] = "Agregar HistorialPrecio";
+}
+
+<h1>Agregar HistorialPrecio</h1>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="ProductoID" class="control-label"></label>
+        <input asp-for="ProductoID" class="form-control" />
+        <span asp-validation-for="ProductoID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PrecioCostoAnterior" class="control-label"></label>
+        <input asp-for="PrecioCostoAnterior" class="form-control" />
+        <span asp-validation-for="PrecioCostoAnterior" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PrecioCostoNuevo" class="control-label"></label>
+        <input asp-for="PrecioCostoNuevo" class="form-control" />
+        <span asp-validation-for="PrecioCostoNuevo" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Crear</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

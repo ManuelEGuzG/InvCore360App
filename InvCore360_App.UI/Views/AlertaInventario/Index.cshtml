@@ -1,0 +1,43 @@
+@model IEnumerable<InvCore360_App.Model.Models.AlertaInventario>
+
+@{
+    ViewData["Title"] = "Alertas de Inventario";
+}
+
+<h1>Alertas de Inventario</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Agregar alerta</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>TipoAlerta</th>
+            <th>StockActual</th>
+            <th>StockMinimo</th>
+            <th>FechaAlerta</th>
+            <th>Estado</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Producto?.Nombre</td>
+            <td>@item.TipoAlerta</td>
+            <td>@item.StockActual</td>
+            <td>@item.StockMinimo</td>
+            <td>@item.FechaAlerta.ToString("g")</td>
+            <td>@item.EstadoAlerta</td>
+            <td>
+                <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.AlertaID">Details</a>
+                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.AlertaID">Edit</a>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.AlertaID">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

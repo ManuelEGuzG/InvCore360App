@@ -1,0 +1,39 @@
+@model IEnumerable<InvCore360_App.Model.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<h1>Usuarios</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Crear nuevo usuario</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>NombreUsuario</th>
+            <th>NombreCompleto</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.NombreUsuario</td>
+            <td>@item.NombreCompleto</td>
+            <td>@item.Email</td>
+            <td>@item.Rol</td>
+            <td>
+                <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.UsuarioID">Details</a>
+                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.UsuarioID">Edit</a>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.UsuarioID">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

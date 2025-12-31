@@ -1,0 +1,42 @@
+@model IEnumerable<InvCore360_App.Model.Models.HistorialPrecio>
+
+@{
+    ViewData["Title"] = "HistorialPrecios";
+}
+
+<h1>Historial de Precios</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Agregar registro</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>PrecioCostoAnterior</th>
+            <th>PrecioCostoNuevo</th>
+            <th>PrecioVentaAnterior</th>
+            <th>PrecioVentaNuevo</th>
+            <th>FechaCambio</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Producto?.Nombre</td>
+            <td>@(item.PrecioCostoAnterior.HasValue ? item.PrecioCostoAnterior.Value.ToString("C") : string.Empty)</td>
+            <td>@(item.PrecioCostoNuevo.HasValue ? item.PrecioCostoNuevo.Value.ToString("C") : string.Empty)</td>
+            <td>@(item.PrecioVentaAnterior.HasValue ? item.PrecioVentaAnterior.Value.ToString("C") : string.Empty)</td>
+            <td>@(item.PrecioVentaNuevo.HasValue ? item.PrecioVentaNuevo.Value.ToString("C") : string.Empty)</td>
+            <td>@item.FechaCambio.ToString("g")</td>
+            <td>
+                <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.HistorialID">Details</a>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.HistorialID">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

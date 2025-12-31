@@ -36,6 +36,7 @@ builder.Services.AddScoped<MovimientoInventarioService>();
 builder.Services.AddScoped<GastoService>();
 builder.Services.AddScoped<AlertaInventarioService>();
 builder.Services.AddScoped<ConfiguracionNegocioService>();
+builder.Services.AddScoped<HistorialPrecioService>();
 
 var app = builder.Build();
 
@@ -56,6 +57,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Producto}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
