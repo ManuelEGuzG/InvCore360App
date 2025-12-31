@@ -25,12 +25,12 @@
                     <div class="date-badge">
                         <div class="d-flex align-items-center justify-content-lg-end gap-3">
                             <div class="date-icon">
-                                <i class="bi bi-clock-history"></i>
+                                <i class="bi bi-person-circle"></i>
                             </div>
                             <div class="text-start">
-                                <small class="text-muted d-block mb-1">Hora actual</small>
-                                <strong class="d-block" id="currentDate">@DateTime.Now.ToString("dd MMM yyyy")</strong>
-                                <small class="text-primary" id="currentTime">@DateTime.Now.ToString("HH:mm:ss")</small>
+                                <small class="text-muted d-block mb-1">Usuario</small>
+                                <strong class="d-block" id="currentUser">@User.Identity?.Name</strong>
+                                <small class="text-primary" id="currentRole">@User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</small>
                             </div>
                         </div>
                     </div>

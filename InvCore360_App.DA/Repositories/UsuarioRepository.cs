@@ -15,6 +15,8 @@ namespace InvCore360_App.DA.Repositories
 
         public async Task<Usuario?> GetByIdAsync(int id) => await _context.Usuarios.FindAsync(id);
 
+        public async Task<Usuario?> GetByNombreUsuarioAsync(string nombreUsuario) => await _context.Usuarios.FirstOrDefaultAsync(u => u.NombreUsuario == nombreUsuario);
+
         public async Task<Usuario> AddAsync(Usuario entity)
         {
             _context.Usuarios.Add(entity);
