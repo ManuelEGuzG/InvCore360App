@@ -1,29 +1,147 @@
 @model InvCore360_App.Model.Models.Categoria
 
 @{
-    ViewData["Title"] = "Detalles Categoria";
+    ViewData["Title"] = "Detalles de Categoría";
 }
 
-<h1>Detalles</h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<div>
-    <h4>Categoria</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">Nombre</dt>
-        <dd class = "col-sm-10">@Model.Nombre</dd>
+<div class="config-premium">
+    <div class="config-hero mb-5">
+        <div class="hero-pattern"></div>
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="hero-content">
+                        <div class="breadcrumb-badge mb-3">
+                            <i class="bi bi-collection-fill"></i>
+                            <span class="mx-2">/</span>
+                            <span>Categorías</span>
+                            <span class="mx-2">/</span>
+                            <span>Detalles</span>
+                        </div>
+                        <h1 class="display-5 fw-bold mb-2 gradient-text">
+                            @Model.Nombre
+                        </h1>
+                        <p class="lead text-muted mb-0">Consulta la configuración y metadatos de esta categoría.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                    <a class="btn-premium" asp-action="Edit" asp-route-id="@Model.CategoriaID">
+                        <span class="btn-glow"></span>
+                        <i class="bi bi-pencil-square me-2"></i>
+                        <span>Editar Categoría</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <dt class = "col-sm-2">Descripcion</dt>
-        <dd class = "col-sm-10">@Model.Descripcion</dd>
+    <div class="row justify-content-center">
+        <div class="col-xl-9">
+            <div class="table-card overflow-hidden">
+                <div class="detail-header-status @(Model.Activo ? "bg-success-subtle" : "bg-danger-subtle") p-4 border-bottom">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="item-icon @(Model.Activo ? "icon-success" : "icon-danger") shadow-sm">
+                            <i class="bi @(Model.Activo ? "bi-check-circle-fill" : "bi-x-circle-fill")"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0 fw-bold">La categoría está actualmente @(Model.Activo ? "Activa" : "Inactiva")</h5>
+                            <p class="mb-0 text-muted small">ID de Sistema: #@Model.CategoriaID</p>
+                        </div>
+                    </div>
+                </div>
 
-        <dt class = "col-sm-2">Activo</dt>
-        <dd class = "col-sm-10">@(Model.Activo ? "Sí" : "No")</dd>
+                <div class="p-4 p-md-5">
+                    <div class="row g-5">
+                        <div class="col-md-7">
+                            <h6 class="text-uppercase text-primary fw-bold mb-4" style="letter-spacing: 1px;">Información General</h6>
 
-        <dt class = "col-sm-2">Fecha Creacion</dt>
-        <dd class = "col-sm-10">@Model.FechaCreacion.ToString("g")</dd>
-    </dl>
+                            <div class="mb-4">
+                                <label class="text-muted small d-block mb-1">Nombre Comercial</label>
+                                <p class="h5 fw-semibold text-dark">@Model.Nombre</p>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="text-muted small d-block mb-1">Descripción Detallada</label>
+                                <p class="text-dark">
+                                    @(string.IsNullOrEmpty(Model.Descripcion) ? "No se ha proporcionado una descripción para esta categoría." : Model.Descripcion)
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="audit-card p-4 rounded-4 bg-light border-0">
+                                <h6 class="fw-bold mb-3"><i class="bi bi-clock-history me-2"></i>Auditoría</h6>
+                                <hr class="my-3 opacity-10">
+
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span class="text-muted">Fecha Creación:</span>
+                                    <span class="fw-medium">@Model.FechaCreacion.ToString("dd MMM yyyy")</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="text-muted">Hora Registro:</span>
+                                    <span class="fw-medium">@Model.FechaCreacion.ToString("HH:mm")</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <a asp-action="Index" class="btn-cancel w-100 text-center">
+                                    <i class="bi bi-arrow-left me-2"></i>Volver al Listado
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div>
-    <a class="btn btn-secondary" asp-action="Index">Back to List</a>
-</div>
+<style>
+    /* Estilos específicos para la vista de detalles */
+    .icon-success {
+        background: #10b981;
+        color: white;
+    }
+
+    .icon-danger {
+        background: #ef4444;
+        color: white;
+    }
+
+    .bg-success-subtle {
+        background-color: rgba(16, 185, 129, 0.05) !important;
+    }
+
+    .bg-danger-subtle {
+        background-color: rgba(239, 68, 68, 0.05) !important;
+    }
+
+    .audit-card {
+        border-left: 4px solid var(--primary) !important;
+    }
+
+    .btn-cancel {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.8rem 1.5rem;
+        border-radius: 12px;
+        font-weight: 600;
+        color: #64748b;
+        background: #f1f5f9;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+        .btn-cancel:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+    /* Reutilización de animaciones */
+    .table-card {
+        animation: fadeInUp 0.6s ease-out;
+    }
+</style>

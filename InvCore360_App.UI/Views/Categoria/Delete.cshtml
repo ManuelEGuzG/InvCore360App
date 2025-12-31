@@ -1,27 +1,159 @@
 @model InvCore360_App.Model.Models.Categoria
 
 @{
-    ViewData["Title"] = "Eliminar Categoria";
+    ViewData["Title"] = "Eliminar Categoría";
 }
 
-<h1>Eliminar Categoria</h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<h3>¿Está seguro que desea eliminar esta categoría?</h3>
+<div class="config-premium">
+    <div class="config-hero mb-5">
+        <div class="hero-pattern"></div>
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="hero-content">
+                        <div class="breadcrumb-badge mb-3 bg-danger-subtle text-danger">
+                            <i class="bi bi-exclamation-octagon-fill"></i>
+                            <span class="mx-2">/</span>
+                            <span>Categorías</span>
+                            <span class="mx-2">/</span>
+                            <span>Eliminar</span>
+                        </div>
+                        <h1 class="display-5 fw-bold mb-2 text-danger">
+                            Confirmar Eliminación
+                        </h1>
+                        <p class="lead text-muted mb-0">Esta acción no se puede deshacer. Por favor, revisa los detalles.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div>
-    <h4>Categoria</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">Nombre</dt>
-        <dd class = "col-sm-10">@Model.Nombre</dd>
+    <div class="row justify-content-center">
+        <div class="col-xl-7">
+            <div class="table-card border-top border-danger border-4">
+                <div class="p-4 p-md-5 text-center">
+                    <div class="warning-icon-wrapper mb-4">
+                        <div class="warning-pulse"></div>
+                        <i class="bi bi-trash3-fill text-danger" style="font-size: 3rem; position: relative; z-index: 2;"></i>
+                    </div>
 
-        <dt class = "col-sm-2">Descripcion</dt>
-        <dd class = "col-sm-10">@Model.Descripcion</dd>
-    </dl>
+                    <h3 class="fw-bold text-dark mb-3">¿Estás absolutamente seguro?</h3>
+                    <p class="text-muted mb-5">
+                        Estás a punto de eliminar permanentemente la categoría <strong>"@Model.Nombre"</strong>.
+                        Asegúrate de que no existan productos vinculados a esta categoría antes de proceder.
+                    </p>
+
+                    <div class="bg-light rounded-4 p-4 mb-5 text-start border">
+                        <div class="row">
+                            <div class="col-sm-4 text-muted small text-uppercase fw-bold">Nombre:</div>
+                            <div class="col-sm-8 fw-semibold text-dark mb-2">@Model.Nombre</div>
+
+                            <div class="col-sm-4 text-muted small text-uppercase fw-bold">Descripción:</div>
+                            <div class="col-sm-8 text-dark">
+                                @(string.IsNullOrEmpty(Model.Descripcion) ? "Sin descripción" : Model.Descripcion)
+                            </div>
+                        </div>
+                    </div>
+
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" asp-for="CategoriaID" />
+                        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                            <button type="submit" class="btn-delete-premium">
+                                <i class="bi bi-trash3 me-2"></i>Confirmar Eliminación
+                            </button>
+                            <a asp-action="Index" class="btn-cancel">
+                                <i class="bi bi-arrow-left me-2"></i>Cancelar y Volver
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<form asp-action="Delete" method="post">
-    <input type="hidden" asp-for="CategoriaID" />
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
-</form>
+<style>
+    /* Estilos específicos para eliminación */
+    .bg-danger-subtle {
+        background-color: rgba(239, 68, 68, 0.1) !important;
+    }
+
+    .warning-icon-wrapper {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 100px;
+    }
+
+    .warning-pulse {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(239, 68, 68, 0.2);
+        border-radius: 50%;
+        animation: pulse-danger 2s infinite;
+    }
+
+    .btn-delete-premium {
+        background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+        color: white;
+        border: none;
+        padding: 1rem 2.5rem;
+        border-radius: 16px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+    }
+
+        .btn-delete-premium:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(239, 68, 68, 0.4);
+            color: white;
+        }
+
+    .btn-cancel {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem 2rem;
+        border-radius: 16px;
+        font-weight: 600;
+        color: #64748b;
+        background: #f1f5f9;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+        .btn-cancel:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+    @@keyframes pulse-danger {
+        0% {
+            transform: scale(0.95);
+            opacity: 0.7;
+        }
+
+        70% {
+            transform: scale(1.2);
+            opacity: 0;
+        }
+
+        100% {
+            transform: scale(0.95);
+            opacity: 0;
+        }
+    }
+
+    .table-card {
+        animation: fadeInUp 0.6s ease-out;
+        border-radius: 24px;
+        background: white;
+        box-shadow: var(--shadow);
+    }
+</style>

@@ -1,44 +1,621 @@
 @model InvCore360_App.Model.Models.ConfiguracionNegocio
-
 @{
     ViewData["Title"] = "Crear Configuración";
 }
 
-<h1>Crear Configuración</h1>
+<!-- Agregar Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="NombreNegocio"></label>
-        <input asp-for="NombreNegocio" class="form-control" />
+<div class="create-premium">
+    <!-- Hero Header -->
+    <div class="create-hero mb-5">
+        <div class="hero-pattern"></div>
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <div class="hero-content">
+                        <div class="breadcrumb-badge mb-3">
+                            <a asp-action="Index" class="breadcrumb-link">
+                                <i class="bi bi-gear"></i>
+                                <span>Configuración</span>
+                            </a>
+                            <span class="mx-2">/</span>
+                            <span>Nueva Configuración</span>
+                        </div>
+                        <h1 class="display-4 fw-bold mb-2 gradient-text">
+                            <i class="bi bi-plus-circle-fill me-3"></i>Nueva Configuración del Negocio
+                        </h1>
+                        <p class="lead text-muted mb-0">Complete los datos para establecer los parámetros de su empresa</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="RUC"></label>
-        <input asp-for="RUC" class="form-control" />
+
+    <!-- Form Card -->
+    <div class="form-section">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="form-card">
+                    <form asp-action="Create" method="post" id="configForm">
+                        <div class="form-steps">
+                            <!-- Step 1: Información Básica -->
+                            <div class="form-step active">
+                                <div class="step-header">
+                                    <div class="step-icon step-icon-primary">
+                                        <i class="bi bi-building"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="step-title">Información Básica</h5>
+                                        <p class="step-subtitle">Datos generales del negocio</p>
+                                    </div>
+                                </div>
+
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <div class="form-group-premium">
+                                            <label asp-for="NombreNegocio" class="form-label">
+                                                <i class="bi bi-building me-2"></i>
+                                                Nombre del Negocio
+                                            </label>
+                                            <input asp-for="NombreNegocio" class="form-control-premium" placeholder="Ej: Mi Empresa S.A." />
+                                            <span asp-validation-for="NombreNegocio" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group-premium">
+                                            <label asp-for="RUC" class="form-label">
+                                                <i class="bi bi-card-text me-2"></i>
+                                                RUC
+                                            </label>
+                                            <input asp-for="RUC" class="form-control-premium" placeholder="Ej: 20123456789" />
+                                            <span asp-validation-for="RUC" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group-premium">
+                                            <label asp-for="Telefono" class="form-label">
+                                                <i class="bi bi-telephone me-2"></i>
+                                                Teléfono
+                                            </label>
+                                            <input asp-for="Telefono" class="form-control-premium" placeholder="Ej: +506 1234-5678" />
+                                            <span asp-validation-for="Telefono" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group-premium">
+                                            <label asp-for="Email" class="form-label">
+                                                <i class="bi bi-envelope me-2"></i>
+                                                Email
+                                            </label>
+                                            <input asp-for="Email" class="form-control-premium" type="email" placeholder="contacto@miempresa.com" />
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-group-premium">
+                                            <label asp-for="Direccion" class="form-label">
+                                                <i class="bi bi-geo-alt me-2"></i>
+                                                Dirección
+                                            </label>
+                                            <textarea asp-for="Direccion" class="form-control-premium" rows="3" placeholder="Dirección completa del negocio"></textarea>
+                                            <span asp-validation-for="Direccion" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Configuración Financiera -->
+                            <div class="form-step mt-5">
+                                <div class="step-header">
+                                    <div class="step-icon step-icon-success">
+                                        <i class="bi bi-cash-coin"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="step-title">Configuración Financiera</h5>
+                                        <p class="step-subtitle">Parámetros económicos y tributarios</p>
+                                    </div>
+                                </div>
+
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <div class="form-group-premium">
+                                            <label asp-for="MonedaPredeterminada" class="form-label">
+                                                <i class="bi bi-cash-stack me-2"></i>
+                                                Moneda Predeterminada
+                                            </label>
+                                            <select asp-for="MonedaPredeterminada" class="form-control-premium">
+                                                <option value="">Seleccionar moneda...</option>
+                                                <option value="CRC">CRC - Colón Costarricense</option>
+                                                <option value="USD">USD - Dólar Estadounidense</option>
+                                                <option value="EUR">EUR - Euro</option>
+                                                <option value="MXN">MXN - Peso Mexicano</option>
+                                                <option value="COP">COP - Peso Colombiano</option>
+                                            </select>
+                                            <span asp-validation-for="MonedaPredeterminada" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group-premium">
+                                            <label asp-for="PorcentajeImpuesto" class="form-label">
+                                                <i class="bi bi-percent me-2"></i>
+                                                Porcentaje de Impuesto (%)
+                                            </label>
+                                            <input asp-for="PorcentajeImpuesto" class="form-control-premium" type="number" step="0.01" placeholder="Ej: 13.00" />
+                                            <span asp-validation-for="PorcentajeImpuesto" class="text-danger"></span>
+                                            <small class="form-hint">
+                                                <i class="bi bi-info-circle me-1"></i>
+                                                Impuesto que se aplicará a las ventas
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Opciones del Sistema -->
+                            <div class="form-step mt-5">
+                                <div class="step-header">
+                                    <div class="step-icon step-icon-warning">
+                                        <i class="bi bi-bell"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="step-title">Opciones del Sistema</h5>
+                                        <p class="step-subtitle">Preferencias y notificaciones</p>
+                                    </div>
+                                </div>
+
+                                <div class="row g-4">
+                                    <div class="col-12">
+                                        <div class="toggle-card">
+                                            <div class="toggle-content">
+                                                <div class="d-flex align-items-start gap-3">
+                                                    <div class="toggle-icon">
+                                                        <i class="bi bi-bell-fill"></i>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="toggle-title">Alertas de Inventario</h6>
+                                                        <p class="toggle-description">Recibe notificaciones cuando el stock esté bajo o haya productos agotados</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="toggle-switch">
+                                                <input asp-for="AlertasHabilitadas" type="checkbox" id="alertasToggle" class="toggle-input" />
+                                                <label for="alertasToggle" class="toggle-label">
+                                                    <span class="toggle-slider"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <a class="btn-secondary-premium" asp-action="Index">
+                                <i class="bi bi-arrow-left me-2"></i>
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn-primary-premium">
+                                <span class="btn-glow"></span>
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                Guardar Configuración
+                                <i class="bi bi-arrow-right ms-2"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Direccion"></label>
-        <input asp-for="Direccion" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Telefono"></label>
-        <input asp-for="Telefono" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="PorcentajeImpuesto"></label>
-        <input asp-for="PorcentajeImpuesto" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="MonedaPredeterminada"></label>
-        <input asp-for="MonedaPredeterminada" class="form-control" />
-    </div>
-    <div class="form-group form-check">
-        <input asp-for="AlertasHabilitadas" class="form-check-input" />
-        <label asp-for="AlertasHabilitadas" class="form-check-label"></label>
-    </div>
-    <button type="submit" class="btn btn-primary">Crear</button>
-    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
-</form>
+</div>
+
+<style>
+    :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --success: #10b981;
+        --success-dark: #059669;
+        --info: #3b82f6;
+        --warning: #f59e0b;
+        --warning-dark: #d97706;
+        --danger: #ef4444;
+        --purple: #8b5cf6;
+        --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);
+    }
+
+    .create-premium {
+        padding: 0;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    /* Hero Section */
+    .create-hero {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border-radius: 28px;
+        padding: 2.5rem;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-pattern {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .breadcrumb-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.5rem 1rem;
+        background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%);
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--primary);
+    }
+
+    .breadcrumb-link {
+        color: var(--primary);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+        .breadcrumb-link:hover {
+            color: var(--purple);
+            transform: translateX(-3px);
+        }
+
+    .gradient-text {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Form Card */
+    .form-card {
+        background: white;
+        border-radius: 24px;
+        padding: 3rem;
+        box-shadow: var(--shadow);
+        animation: fadeInUp 0.6s ease-out 0.3s backwards;
+    }
+
+    /* Form Steps */
+    .step-header {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 3px solid #f1f5f9;
+    }
+
+    .step-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+        flex-shrink: 0;
+        color: white;
+    }
+
+    .step-icon-primary {
+        background: linear-gradient(135deg, var(--primary) 0%, #818cf8 100%);
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    .step-icon-success {
+        background: linear-gradient(135deg, var(--success) 0%, #34d399 100%);
+        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+    }
+
+    .step-icon-warning {
+        background: linear-gradient(135deg, var(--warning) 0%, #fbbf24 100%);
+        box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+    }
+
+    .step-title {
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: #0f172a;
+        margin-bottom: 0.25rem;
+    }
+
+    .step-subtitle {
+        color: #64748b;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    /* Form Groups */
+    .form-group-premium {
+        margin-bottom: 0;
+    }
+
+    .form-label {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        color: #334155;
+        font-size: 0.95rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .form-control-premium {
+        width: 100%;
+        padding: 0.875rem 1.25rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 14px;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        background: #ffffff;
+    }
+
+        .form-control-premium:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            background: #ffffff;
+        }
+
+        .form-control-premium::placeholder {
+            color: #94a3b8;
+        }
+
+    textarea.form-control-premium {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .form-hint {
+        display: flex;
+        align-items: center;
+        color: #64748b;
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+    }
+
+    /* Toggle Card */
+    .toggle-card {
+        background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+        border: 2px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+        transition: all 0.3s ease;
+    }
+
+        .toggle-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.1);
+        }
+
+    .toggle-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--warning) 0%, #fbbf24 100%);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+        box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+    }
+
+    .toggle-title {
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 0.5rem;
+    }
+
+    .toggle-description {
+        color: #64748b;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    /* Toggle Switch */
+    .toggle-switch {
+        position: relative;
+    }
+
+    .toggle-input {
+        display: none;
+    }
+
+    .toggle-label {
+        width: 70px;
+        height: 38px;
+        background: #cbd5e1;
+        border-radius: 50px;
+        display: block;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .toggle-slider {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 30px;
+        height: 30px;
+        background: white;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .toggle-input:checked + .toggle-label {
+        background: linear-gradient(135deg, var(--success) 0%, var(--success-dark) 100%);
+    }
+
+        .toggle-input:checked + .toggle-label .toggle-slider {
+            transform: translateX(32px);
+        }
+
+    /* Form Actions */
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 3px solid #f1f5f9;
+        flex-wrap: wrap;
+    }
+
+    .btn-primary-premium,
+    .btn-secondary-premium {
+        display: inline-flex;
+        align-items: center;
+        padding: 1rem 2rem;
+        border-radius: 16px;
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-primary-premium {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+        color: white;
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-glow {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.6s ease;
+    }
+
+    .btn-primary-premium:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4);
+        color: white;
+    }
+
+        .btn-primary-premium:hover .btn-glow {
+            left: 100%;
+        }
+
+    .btn-secondary-premium {
+        background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+        color: #475569;
+    }
+
+        .btn-secondary-premium:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
+            color: #1e293b;
+            box-shadow: 0 8px 20px rgba(148, 163, 184, 0.3);
+        }
+
+    /* Validation */
+    .text-danger {
+        color: var(--danger);
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+        display: block;
+    }
+
+    /* Animations */
+    keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive */
+    media (max-width: 768px) {
+        .create-hero {
+            padding: 1.5rem;
+        }
+
+        .gradient-text {
+            font-size: 1.75rem;
+        }
+
+        .form-card {
+            padding: 1.5rem;
+        }
+
+        .step-header {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+        }
+
+        .toggle-card {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .form-actions {
+            flex-direction: column-reverse;
+        }
+
+        .btn-primary-premium,
+        .btn-secondary-premium {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

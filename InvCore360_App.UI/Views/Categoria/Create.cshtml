@@ -1,30 +1,401 @@
 @model InvCore360_App.Model.Models.Categoria
 
 @{
-    ViewData["Title"] = "Crear Categoria";
+    ViewData["Title"] = "Crear Categoría";
 }
 
-<h1>Crear Categoria</h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="Nombre" class="control-label"></label>
-        <input asp-for="Nombre" class="form-control" />
-        <span asp-validation-for="Nombre" class="text-danger"></span>
+<div class="create-premium">
+    <div class="create-hero mb-5">
+        <div class="hero-pattern"></div>
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <div class="hero-content">
+                        <div class="breadcrumb-badge mb-3">
+                            <a asp-action="Index" class="breadcrumb-link">
+                                <i class="bi bi-collection"></i>
+                                <span>Categorías</span>
+                            </a>
+                            <span class="mx-2">/</span>
+                            <span>Nueva Categoría</span>
+                        </div>
+                        <h1 class="display-4 fw-bold mb-2 gradient-text">
+                            <i class="bi bi-plus-circle-fill me-3"></i>Nueva Categoría de Productos
+                        </h1>
+                        <p class="lead text-muted mb-0">Define una nueva clasificación para organizar tu inventario con precisión.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Descripcion" class="control-label"></label>
-        <textarea asp-for="Descripcion" class="form-control"></textarea>
-        <span asp-validation-for="Descripcion" class="text-danger"></span>
+
+    <div class="form-section">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="form-card">
+                    <form asp-action="Create" method="post" id="categoriaForm">
+                        <div class="form-steps">
+                            <div class="form-step active">
+                                <div class="step-header">
+                                    <div class="step-icon step-icon-primary">
+                                        <i class="bi bi-tag"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="step-title">Información de la Categoría</h5>
+                                        <p class="step-subtitle">Nombre y descripción de la nueva clasificación</p>
+                                    </div>
+                                </div>
+
+                                <div class="row g-4">
+                                    <div class="col-md-12">
+                                        <div class="form-group-premium">
+                                            <label asp-for="Nombre" class="form-label">
+                                                <i class="bi bi-type me-2"></i>
+                                                Nombre de la Categoría
+                                            </label>
+                                            <input asp-for="Nombre" class="form-control-premium" placeholder="Ej: Electrónica de Consumo, Ropa de Invierno..." />
+                                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-group-premium">
+                                            <label asp-for="Descripcion" class="form-label">
+                                                <i class="bi bi-justify-left me-2"></i>
+                                                Descripción Detallada
+                                            </label>
+                                            <textarea asp-for="Descripcion" class="form-control-premium" rows="3" placeholder="Explique qué tipos de productos pertenecen a esta categoría..."></textarea>
+                                            <span asp-validation-for="Descripcion" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-step mt-5">
+                                <div class="step-header">
+                                    <div class="step-icon step-icon-success">
+                                        <i class="bi bi-shield-check"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="step-title">Estado y Disponibilidad</h5>
+                                        <p class="step-subtitle">Control de visibilidad en el sistema</p>
+                                    </div>
+                                </div>
+
+                                <div class="row g-4">
+                                    <div class="col-12">
+                                        <div class="toggle-card">
+                                            <div class="toggle-content">
+                                                <div class="d-flex align-items-start gap-3">
+                                                    <div class="toggle-icon">
+                                                        <i class="bi bi-toggle-on"></i>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="toggle-title">Categoría Activa</h6>
+                                                        <p class="toggle-description">Si se habilita, la categoría podrá ser asignada a productos inmediatamente.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="toggle-switch">
+                                                <input asp-for="Activo" type="checkbox" id="activoToggle" class="toggle-input" checked />
+                                                <label for="activoToggle" class="toggle-label">
+                                                    <span class="toggle-slider"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <a class="btn-secondary-premium" asp-action="Index">
+                                <i class="bi bi-arrow-left me-2"></i>
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn-primary-premium">
+                                <span class="btn-glow"></span>
+                                <i class="bi bi-plus-circle-fill me-2"></i>
+                                Crear Categoría
+                                <i class="bi bi-arrow-right ms-2"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group form-check">
-        <input asp-for="Activo" class="form-check-input" />
-        <label asp-for="Activo" class="form-check-label"></label>
-    </div>
-    <button type="submit" class="btn btn-primary">Crear</button>
-    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
-</form>
+</div>
+
+<style>
+    /* Estilos base compartidos con ConfiguracionNegocio */
+    :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --success: #10b981;
+        --success-dark: #059669;
+        --purple: #8b5cf6;
+        --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .create-premium {
+        padding: 0;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    /* Hero Section */
+    .create-hero {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border-radius: 28px;
+        padding: 2.5rem;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-pattern {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    .breadcrumb-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%);
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--primary);
+    }
+
+    .breadcrumb-link {
+        color: var(--primary);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+        .breadcrumb-link:hover {
+            color: var(--purple);
+            transform: translateX(-3px);
+        }
+
+    .gradient-text {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Form Card & Content */
+    .form-card {
+        background: white;
+        border-radius: 24px;
+        padding: 3rem;
+        box-shadow: var(--shadow);
+        animation: fadeInUp 0.6s ease-out 0.3s backwards;
+    }
+
+    .step-header {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 3px solid #f1f5f9;
+    }
+
+    .step-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+        color: white;
+    }
+
+    .step-icon-primary {
+        background: linear-gradient(135deg, var(--primary) 0%, #818cf8 100%);
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    .step-icon-success {
+        background: linear-gradient(135deg, var(--success) 0%, #34d399 100%);
+        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+    }
+
+    .step-title {
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: #0f172a;
+        margin-bottom: 0.25rem;
+    }
+
+    .step-subtitle {
+        color: #64748b;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 0.75rem;
+        display: block;
+    }
+
+    .form-control-premium {
+        width: 100%;
+        padding: 0.875rem 1.25rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 14px;
+        transition: all 0.3s ease;
+    }
+
+        .form-control-premium:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+    /* Toggle Card */
+    .toggle-card {
+        background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+        border: 2px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .toggle-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--success) 0%, var(--success-dark) 100%);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    .toggle-title {
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 0.5rem;
+    }
+
+    .toggle-description {
+        color: #64748b;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    /* Toggle Switch */
+    .toggle-input {
+        display: none;
+    }
+
+    .toggle-label {
+        width: 70px;
+        height: 38px;
+        background: #cbd5e1;
+        border-radius: 50px;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .toggle-slider {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 30px;
+        height: 30px;
+        background: white;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+
+    .toggle-input:checked + .toggle-label {
+        background: linear-gradient(135deg, var(--success) 0%, var(--success-dark) 100%);
+    }
+
+        .toggle-input:checked + .toggle-label .toggle-slider {
+            transform: translateX(32px);
+        }
+
+    /* Actions */
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 3px solid #f1f5f9;
+    }
+
+    .btn-primary-premium, .btn-secondary-premium {
+        display: inline-flex;
+        align-items: center;
+        padding: 1rem 2rem;
+        border-radius: 16px;
+        font-weight: 600;
+        transition: all 0.4s ease;
+        border: none;
+    }
+
+    .btn-primary-premium {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+        color: white;
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-secondary-premium {
+        background: #e2e8f0;
+        color: #475569;
+        text-decoration: none;
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .form-actions {
+            flex-direction: column-reverse;
+        }
+
+        .toggle-card {
+            flex-direction: column;
+            text-align: center;
+            gap: 1.5rem;
+        }
+    }
+</style>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
