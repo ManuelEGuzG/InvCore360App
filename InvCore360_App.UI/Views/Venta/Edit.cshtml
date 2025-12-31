@@ -1,0 +1,49 @@
+@model InvCore360_App.Model.Models.Venta
+
+@{
+    ViewData["Title"] = "Editar Venta";
+}
+
+<h1>Editar Venta</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="VentaID" />
+    <div class="form-group">
+        <label asp-for="NumeroVenta" class="control-label"></label>
+        <input asp-for="NumeroVenta" class="form-control" />
+        <span asp-validation-for="NumeroVenta" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MetodoPago" class="control-label"></label>
+        <input asp-for="MetodoPago" class="form-control" />
+        <span asp-validation-for="MetodoPago" class="text-danger"></span>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label asp-for="Subtotal" class="control-label"></label>
+            <input asp-for="Subtotal" class="form-control" />
+            <span asp-validation-for="Subtotal" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Impuesto" class="control-label"></label>
+            <input asp-for="Impuesto" class="form-control" />
+            <span asp-validation-for="Impuesto" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Descuento" class="control-label"></label>
+            <input asp-for="Descuento" class="form-control" />
+            <span asp-validation-for="Descuento" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Total" class="control-label"></label>
+        <input asp-for="Total" class="form-control" />
+        <span asp-validation-for="Total" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

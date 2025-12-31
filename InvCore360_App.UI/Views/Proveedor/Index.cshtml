@@ -1,0 +1,41 @@
+@model IEnumerable<InvCore360_App.Model.Models.Proveedor>
+
+@{
+    ViewData["Title"] = "Proveedores";
+}
+
+<h1>Proveedores</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Crear nuevo proveedor</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Contacto</th>
+            <th>Telefono</th>
+            <th>Email</th>
+            <th>Activo</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Nombre</td>
+            <td>@item.Contacto</td>
+            <td>@item.Telefono</td>
+            <td>@item.Email</td>
+            <td>@(item.Activo ? "Sí" : "No")</td>
+            <td>
+                <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.ProveedorID">Details</a>
+                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.ProveedorID">Edit</a>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.ProveedorID">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

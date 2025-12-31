@@ -1,0 +1,51 @@
+@model InvCore360_App.Model.Models.Producto
+
+@{
+    ViewData["Title"] = "Editar Producto";
+}
+
+<h1>Editar Producto</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="ProductoID" />
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label asp-for="CodigoBarras" class="control-label"></label>
+            <input asp-for="CodigoBarras" class="form-control" />
+            <span asp-validation-for="CodigoBarras" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Nombre" class="control-label"></label>
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Descripcion" class="control-label"></label>
+        <textarea asp-for="Descripcion" class="form-control"></textarea>
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label asp-for="PrecioCosto" class="control-label"></label>
+            <input asp-for="PrecioCosto" class="form-control" />
+            <span asp-validation-for="PrecioCosto" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="PrecioVenta" class="control-label"></label>
+            <input asp-for="PrecioVenta" class="form-control" />
+            <span asp-validation-for="PrecioVenta" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="StockActual" class="control-label"></label>
+            <input asp-for="StockActual" class="form-control" />
+            <span asp-validation-for="StockActual" class="text-danger"></span>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

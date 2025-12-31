@@ -1,0 +1,29 @@
+@model InvCore360_App.Model.Models.Venta
+
+@{
+    ViewData["Title"] = "Detalles Venta";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Venta</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">Numero</dt>
+        <dd class = "col-sm-10">@Model.NumeroVenta</dd>
+
+        <dt class = "col-sm-2">Fecha</dt>
+        <dd class = "col-sm-10">@Model.FechaVenta.ToString("g")</dd>
+
+        <dt class = "col-sm-2">Total</dt>
+        <dd class = "col-sm-10">@Model.Total.ToString("C")</dd>
+
+        <dt class = "col-sm-2">MetodoPago</dt>
+        <dd class = "col-sm-10">@Model.MetodoPago</dd>
+    </dl>
+</div>
+
+<div>
+    <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+</div>

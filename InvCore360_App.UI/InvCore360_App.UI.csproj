@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\InvCore360_App.BL\InvCore360_App.BL.csproj" />
+    <ProjectReference Include="..\InvCore360_App.Model\InvCore360_App.Model.csproj" />
+  </ItemGroup>
+
 </Project>

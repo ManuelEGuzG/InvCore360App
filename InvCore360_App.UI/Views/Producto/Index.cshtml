@@ -1,0 +1,43 @@
+@model IEnumerable<InvCore360_App.Model.Models.Producto>
+
+@{
+    ViewData["Title"] = "Productos";
+}
+
+<h1>Productos</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Crear nuevo producto</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Codigo</th>
+            <th>Nombre</th>
+            <th>Categoria</th>
+            <th>Proveedor</th>
+            <th>PrecioVenta</th>
+            <th>StockActual</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.CodigoBarras</td>
+            <td>@item.Nombre</td>
+            <td>@item.Categoria?.Nombre</td>
+            <td>@item.Proveedor?.Nombre</td>
+            <td>@item.PrecioVenta.ToString("C")</td>
+            <td>@item.StockActual</td>
+            <td>
+                <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.ProductoID">Details</a>
+                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.ProductoID">Edit</a>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.ProductoID">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
