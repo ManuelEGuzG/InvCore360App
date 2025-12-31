@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace InvCore360_App.Model
+namespace InvCore360_App.Model.Models
 {
     [Table("Proveedores")]
     public class Proveedor

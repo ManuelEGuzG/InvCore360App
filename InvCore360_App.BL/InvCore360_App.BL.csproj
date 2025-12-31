@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\InvCore360_App.DA\InvCore360_App.DA.csproj" />
+    <ProjectReference Include="..\InvCore360_App.Model\InvCore360_App.Model.csproj" />
+  </ItemGroup>
+
 </Project>
